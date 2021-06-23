@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "../widgets/form_components.dart";
 import '../api/api.dart';
 import "../state.dart";
 
@@ -11,8 +12,9 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  var isLoading = false;
-  var error;
+  bool isLoading = false;
+  bool passwordVisible = false;
+  String? error;
 
   void loginBtn() async {
     FocusManager.instance.primaryFocus?.unfocus();
@@ -34,71 +36,107 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void removeError() {
-    setState(() => error = null);
-  }
-
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final bool keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
+    print(keyboardOpen);
+
     return Scaffold(
-        body: Form(
-            key: _formKey,
-            child: AutofillGroup(
+      body: Form(
+        key: _formKey,
+        child: AutofillGroup(
+          child: Stack(
+            children: <Widget>[
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeOutQuad,
+                width: size.width,
+                height: size.height / 3.0,
+                top: keyboardOpen ? -size.height : 0.0,
+                child: Container(
+                  color: Colors.blue,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 150.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AnimatedDefaultTextStyle(
+                      child: Text("Login"),
+                      style: !keyboardOpen
+                          ? TextStyle(
+                              color: Colors.white,
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.w900,
+                            )
+                          : TextStyle(
+                              color: Colors.black,
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.w900,
+                            ),
+                      duration: Duration(milliseconds: 200),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(30.0),
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text("Login", style: TextStyle(fontSize: 25)),
-                Text(error != null ? "Error: $error" : "",
-                    style: TextStyle(color: Colors.red)),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-                  child: TextFormField(
-                    controller: emailController,
-                    autofocus: true,
-                    keyboardType: TextInputType.emailAddress,
-                    autofillHints: [AutofillHints.email],
-                    textInputAction: TextInputAction.next,
-                    onChanged: (_) => removeError(),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: "user@example.com"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
-                  ),
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      error ?? "",
+                      style: TextStyle(color: Colors.red),
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFieldWidget(
+                      controller: emailController,
+                      hintText: "Email",
+                      icon: Icons.mail_outline,
+                      enabled: !isLoading,
+                      keyboardType: TextInputType.emailAddress,
+                      autofillHints: [AutofillHints.email],
+                      textInputAction: TextInputAction.next,
+                      onChanged: (_) => setState(() => error = null),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter your email'
+                          : null,
+                    ),
+                    SizedBox(height: 10.0),
+                    TextFieldWidget(
+                      controller: passwordController,
+                      hintText: "Password",
+                      icon: Icons.lock_outline,
+                      suffixIcon: passwordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                      enabled: !isLoading,
+                      obsecureText: !passwordVisible,
+                      autocorrect: false,
+                      autofillHints: [AutofillHints.password],
+                      textInputAction: TextInputAction.done,
+                      onSuffixPressed: () =>
+                          setState(() => passwordVisible = !passwordVisible),
+                      onChanged: (_) => setState(() => error = null),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter your password'
+                          : null,
+                    ),
+                    SizedBox(height: 30.0),
+                    ButtonWidget(
+                        title: "Login",
+                        loading: isLoading,
+                        onPressed: loginBtn),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-                  child: TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    autofillHints: [AutofillHints.password],
-                    textInputAction: TextInputAction.done,
-                    onChanged: (_) => removeError(),
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: "password"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  child: isLoading
-                      ? CircularProgressIndicator()
-                      : ElevatedButton(
-                          onPressed: loginBtn, child: Text('Login')),
-                ),
-              ],
-            ))));
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -9,18 +9,24 @@ class HomePage extends StatelessWidget {
     if (state.user == null) Navigator.popAndPushNamed(context, "/login");
 
     return AppLayout(
-        body: Padding(
-            padding: EdgeInsets.fromLTRB(15.0, 20.0, 32.0, 8.0),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                "Welcome ${state.user!.name}!",
-                style: TextStyle(fontSize: 25.0),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(15.0, 20.0, 32.0, 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Welcome ${state.user!.name}!",
+              style: TextStyle(fontSize: 25.0),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Center(
+                child: Text("Home Page!"),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Center(child: Text("Home Page!")),
-              )
-            ])));
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

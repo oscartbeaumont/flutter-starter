@@ -24,25 +24,26 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopedModel<AppState>(
-        model: AppState(),
-        child: GestureDetector(
-            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-            child: MaterialApp(
-              title: 'Starter',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              home: ApplicationLauncher(),
-              onGenerateRoute: (settings) {
-                return PageRouteBuilder(
-                  settings: settings,
-                  pageBuilder: (context, _, __) =>
-                      routes[settings.name]!(context),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) => child,
-                );
-              },
-            )));
+      model: AppState(),
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: MaterialApp(
+          title: 'Starter',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: ApplicationLauncher(),
+          onGenerateRoute: (settings) {
+            return PageRouteBuilder(
+              settings: settings,
+              pageBuilder: (context, _, __) => routes[settings.name]!(context),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) => child,
+            );
+          },
+        ),
+      ),
+    );
   }
 }
 

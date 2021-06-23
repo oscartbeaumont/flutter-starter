@@ -15,38 +15,45 @@ class SettingsPage extends StatelessWidget {
     if (state.user == null) Navigator.popAndPushNamed(context, "/login");
 
     return AppLayout(
-        body: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
               padding: EdgeInsets.fromLTRB(15.0, 20.0, 32.0, 8.0),
-              child: Text("Settings", style: TextStyle(fontSize: 25.0))),
-          ListTile(
-            title: Text("User Name"),
-            subtitle: Text(state.user!.name),
-          ),
-          Divider(
-            thickness: 1,
-          ),
-          ListTile(
-            title: Text("User Email"),
-            subtitle: Text(state.user!.email),
-          ),
-          Divider(
-            thickness: 1,
-          ),
-          ListTile(
-            title: Text("User API Token"),
-            subtitle: Text(state.user!.apiToken),
-          ),
-          Divider(
-            thickness: 1,
-          ),
-          Center(
+              child: Text(
+                "Settings",
+                style: TextStyle(fontSize: 25.0),
+              ),
+            ),
+            ListTile(
+              title: Text("User Name"),
+              subtitle: Text(state.user!.name),
+            ),
+            Divider(
+              thickness: 1,
+            ),
+            ListTile(
+              title: Text("User Email"),
+              subtitle: Text(state.user!.email),
+            ),
+            Divider(
+              thickness: 1,
+            ),
+            ListTile(
+              title: Text("User API Token"),
+              subtitle: Text(state.user!.apiToken),
+            ),
+            Divider(
+              thickness: 1,
+            ),
+            Center(
               child: ElevatedButton(
-                  onPressed: () => logoutBtn(context), child: Text('Logout'))),
-          Padding(
+                onPressed: () => logoutBtn(context),
+                child: Text('Logout'),
+              ),
+            ),
+            Padding(
               padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
               child: FutureBuilder<PackageInfo>(
                 future: PackageInfo.fromPlatform(),
@@ -59,9 +66,11 @@ class SettingsPage extends StatelessWidget {
                     return Text("");
                   }
                 },
-              )),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
-    )); // Center(child: Text("Settings Page!"))
+    );
   }
 }
