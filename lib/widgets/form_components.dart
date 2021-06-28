@@ -16,7 +16,8 @@ class TextFieldWidget extends StatelessWidget {
   final Iterable<String>? autofillHints;
   final TextInputAction? textInputAction;
 
-  TextFieldWidget({
+  const TextFieldWidget({
+    Key? key,
     this.hintText,
     this.icon,
     this.suffixIcon,
@@ -31,7 +32,7 @@ class TextFieldWidget extends StatelessWidget {
     this.keyboardType,
     this.autofillHints,
     this.textInputAction,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class TextFieldWidget extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.blue),
+          borderSide: const BorderSide(color: Colors.blue),
         ),
         suffixIcon: GestureDetector(
           onTap: onSuffixPressed,
@@ -81,7 +82,8 @@ class ButtonWidget extends StatelessWidget {
   final bool? loading;
   final void Function()? onPressed;
 
-  ButtonWidget({this.title, this.loading, this.onPressed});
+  const ButtonWidget({Key? key, this.title, this.loading, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -95,16 +97,16 @@ class ButtonWidget extends StatelessWidget {
         child: InkWell(
           onTap: onPressed,
           borderRadius: BorderRadius.circular(10),
-          child: Container(
+          child: SizedBox(
             height: 60.0,
             child: Center(
               child: loading ?? false
-                  ? CircularProgressIndicator(
+                  ? const CircularProgressIndicator(
                       color: Colors.white,
                     )
                   : Text(
                       title ?? "",
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
             ),
           ),

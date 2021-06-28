@@ -3,6 +3,8 @@ import '../widgets/layout.dart';
 import '../state.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var state = AppState.of(context);
@@ -10,15 +12,15 @@ class HomePage extends StatelessWidget {
 
     return AppLayout(
       body: Padding(
-        padding: EdgeInsets.fromLTRB(15.0, 20.0, 32.0, 8.0),
+        padding: const EdgeInsets.fromLTRB(15.0, 20.0, 32.0, 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               "Welcome ${state.user!.name}!",
-              style: TextStyle(fontSize: 25.0),
+              style: const TextStyle(fontSize: 25.0),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Center(
                 child: Text("Home Page!"),

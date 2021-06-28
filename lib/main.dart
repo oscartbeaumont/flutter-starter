@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'api/api.dart';
 import 'views/loading.dart';
 import 'views/login.dart';
 import 'views/home.dart';
@@ -14,11 +13,13 @@ void main() {
 
 // Application is the root widget. It primarily contains the router.
 class Application extends StatelessWidget {
+  Application({Key? key}) : super(key: key);
+
   final routes = {
-    '/loading': (context) => LoadingPage(),
-    '/login': (context) => LoginPage(),
-    '/home': (context) => HomePage(),
-    '/settings': (context) => SettingsPage(),
+    '/loading': (context) => const LoadingPage(),
+    '/login': (context) => const LoginPage(),
+    '/home': (context) => const HomePage(),
+    '/settings': (context) => const SettingsPage(),
   };
 
   @override
@@ -32,7 +33,7 @@ class Application extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: ApplicationLauncher(),
+          home: const ApplicationLauncher(),
           onGenerateRoute: (settings) {
             return PageRouteBuilder(
               settings: settings,
@@ -49,6 +50,8 @@ class Application extends StatelessWidget {
 
 // ApplicationLauncher is the intial page shown to the user. It shows the loading page until the user's authentication state is known then redirects to the correct page.
 class ApplicationLauncher extends StatefulWidget {
+  const ApplicationLauncher({Key? key}) : super(key: key);
+
   @override
   _ApplicationLauncherState createState() => _ApplicationLauncherState();
 }
@@ -72,6 +75,6 @@ class _ApplicationLauncherState extends State<ApplicationLauncher> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingPage();
+    return const LoadingPage();
   }
 }

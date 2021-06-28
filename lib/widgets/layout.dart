@@ -9,9 +9,10 @@ class AppLayout extends StatelessWidget {
 
   // buttons defines the menu buttons and their respective route
   final buttons = {
-    '/home': BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-    '/settings':
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+    '/home':
+        const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+    '/settings': const BottomNavigationBarItem(
+        icon: Icon(Icons.settings), label: "Settings"),
   };
 
   // currentIndex returns the index of the currently active route
@@ -25,7 +26,7 @@ class AppLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Starter"),
+        title: const Text("Starter"),
         centerTitle: true,
       ),
       body: body,
@@ -34,9 +35,10 @@ class AppLayout extends StatelessWidget {
         items: buttons.values.toList(),
         currentIndex: currentIndex(context),
         onTap: (itemIndex) {
-          if (itemIndex != currentIndex(context))
+          if (itemIndex != currentIndex(context)) {
             Navigator.popAndPushNamed(
                 context, buttons.keys.elementAt(itemIndex));
+          }
         },
       ),
     );

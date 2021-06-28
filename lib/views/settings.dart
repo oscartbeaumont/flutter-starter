@@ -4,6 +4,8 @@ import '../widgets/layout.dart';
 import '../state.dart';
 
 class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key? key}) : super(key: key);
+
   void logoutBtn(BuildContext context) {
     AppState.of(context).setUser(null);
     Navigator.popAndPushNamed(context, '/login');
@@ -19,7 +21,7 @@ class SettingsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(15.0, 20.0, 32.0, 8.0),
               child: Text(
                 "Settings",
@@ -27,34 +29,34 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text("User Name"),
+              title: const Text("User Name"),
               subtitle: Text(state.user!.name),
             ),
-            Divider(
+            const Divider(
               thickness: 1,
             ),
             ListTile(
-              title: Text("User Email"),
+              title: const Text("User Email"),
               subtitle: Text(state.user!.email),
             ),
-            Divider(
+            const Divider(
               thickness: 1,
             ),
             ListTile(
-              title: Text("User API Token"),
+              title: const Text("User API Token"),
               subtitle: Text(state.user!.apiToken),
             ),
-            Divider(
+            const Divider(
               thickness: 1,
             ),
             Center(
               child: ElevatedButton(
                 onPressed: () => logoutBtn(context),
-                child: Text('Logout'),
+                child: const Text('Logout'),
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
               child: FutureBuilder<PackageInfo>(
                 future: PackageInfo.fromPlatform(),
                 builder: (BuildContext context,
@@ -63,7 +65,7 @@ class SettingsPage extends StatelessWidget {
                     return Text(
                         "Version: ${snapshot.data!.version} Build: ${snapshot.data!.buildNumber}");
                   } else {
-                    return Text("");
+                    return const Text("");
                   }
                 },
               ),

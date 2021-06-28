@@ -6,7 +6,7 @@ import "api/api.dart";
 
 // AppState represents the global application state
 class AppState extends Model {
-  final _storage = new FlutterSecureStorage();
+  static const _storage = FlutterSecureStorage();
 
   User? _user;
 

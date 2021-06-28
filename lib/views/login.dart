@@ -4,6 +4,8 @@ import '../api/api.dart';
 import "../state.dart";
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -65,19 +67,19 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AnimatedDefaultTextStyle(
-                      child: Text("Login"),
+                      child: const Text("Login"),
                       style: !keyboardOpen
-                          ? TextStyle(
+                          ? const TextStyle(
                               color: Colors.white,
                               fontSize: 40.0,
                               fontWeight: FontWeight.w900,
                             )
-                          : TextStyle(
+                          : const TextStyle(
                               color: Colors.black,
                               fontSize: 40.0,
                               fontWeight: FontWeight.w900,
                             ),
-                      duration: Duration(milliseconds: 200),
+                      duration: const Duration(milliseconds: 200),
                     ),
                   ],
                 ),
@@ -89,23 +91,23 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     Text(
                       error ?? "",
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     TextFieldWidget(
                       controller: emailController,
                       hintText: "Email",
                       icon: Icons.mail_outline,
                       enabled: !isLoading,
                       keyboardType: TextInputType.emailAddress,
-                      autofillHints: [AutofillHints.email],
+                      autofillHints: const [AutofillHints.email],
                       textInputAction: TextInputAction.next,
                       onChanged: (_) => setState(() => error = null),
                       validator: (value) => value == null || value.isEmpty
                           ? 'Please enter your email'
                           : null,
                     ),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     TextFieldWidget(
                       controller: passwordController,
                       hintText: "Password",
@@ -116,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                       enabled: !isLoading,
                       obsecureText: !passwordVisible,
                       autocorrect: false,
-                      autofillHints: [AutofillHints.password],
+                      autofillHints: const [AutofillHints.password],
                       textInputAction: TextInputAction.done,
                       onSuffixPressed: () =>
                           setState(() => passwordVisible = !passwordVisible),
@@ -125,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                           ? 'Please enter your password'
                           : null,
                     ),
-                    SizedBox(height: 30.0),
+                    const SizedBox(height: 30.0),
                     ButtonWidget(
                         title: "Login",
                         loading: isLoading,

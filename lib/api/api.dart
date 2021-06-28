@@ -12,7 +12,7 @@ class API {
   // login authenticates the user with the API
   static Future<User?> login(String email, String password) async {
     print("Login Request $email  $password");
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     if (email == "wrong") {
       return null;
     }
